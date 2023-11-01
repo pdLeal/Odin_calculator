@@ -1,5 +1,6 @@
 const btns = document.querySelectorAll("button");
 const display = document.getElementById("display");
+const equal = document.getElementById("equal");
 
 function displayValue() {
     const regexForNum = /\d/;
@@ -24,4 +25,45 @@ function displayValue() {
 
 }
 
+function operate() {
+    const valueDisplayed = display.textContent;
+    const fixedStr = valueDisplayed.replace(/x|÷/g, match => {
+        return match === 'x' ? '*' : '/';
+    });
+    const splitStr = fixedStr.split(" ");
+    
+    console.log(splitStr.reduce((prev, curr, index, arr) => {
+
+        if (/[*/+-]/.test(curr)) {
+            switch (curr) {
+                case "+":
+                    return prev + Number(arr[index + 1]);
+                    break;
+                case "-":
+                    return prev - Number(arr[index + 1]);
+                    break;
+                case "*":
+                    return prev * Number(arr[index + 1]);
+                    break;
+                case "/":
+                    return prev / Number(arr[index + 1]);
+            }
+        } else {
+            return prev;
+        }
+    }, Number(splitStr[0])));
+}
+
+// function fixPriority(array) {
+//     const fixedArray = [];
+//     for(let i = 1; i < array.length; i++) {
+//         if(i === array.length - 1) break;
+
+        
+//     }
+
+//     return fixedArray;
+// }
+// console.log(fixPriority(["1", "+", "1", "*", "5"]))
 btns.forEach(btn => btn.addEventListener("click", displayValue));
+equal.addEventListener("click", operate);
