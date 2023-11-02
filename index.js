@@ -25,82 +25,100 @@ function displayValue() {
 
 }
 
-function operate() {
-    const valueDisplayed = display.textContent;
-    const fixedStr = valueDisplayed.replace(/x|÷/g, match => {
+// function operate() {
+
+//     
+//     console.log("splitStr antes: ", splitStr);
+
+//     const copySplit = [...splitStr];
+
+//     // const test = splitStr.reduce((prev, curr, index, arr) => {
+
+//     //     //     if (/[*/+-]/.test(curr)) {
+//     //     //         switch (curr) {
+//     //     //             case "+":
+//     //     //                 return prev + Number(arr[index + 1]);
+//     //     //                 break;
+//     //     //             case "-":
+//     //     //                 return prev - Number(arr[index + 1]);
+//     //     //                 break;
+//     //     //             case "*":
+//     //     //                 return prev * Number(arr[index + 1]);
+//     //     //                 break;
+//     //     //             case "/":
+//     //     //                 return prev / Number(arr[index + 1]);
+//     //     //         }
+//     //     //     } else {
+//     //     //         return prev;
+//     //     //     }
+//     //     // }, Number(splitStr[0])));
+
+//     //     if (/[*/]/.test(curr)) {
+//     //         switch (curr) {
+//     //             case "*":
+
+//     //                 console.table(copySplit);
+
+//     //                 const currIndex = copySplit.indexOf(curr);
+
+//     //                 const prevIndex = currIndex - 1;
+//     //                 const nextIndex = currIndex + 1;
+
+//     //                 console.table("Depois: ", copySplit);
+
+//     //                 console.log(`prevIndex: ${prevIndex}, currIndex: ${currIndex}, nextIndex: ${nextIndex}`);
+
+//     //                 return Number(prev) * Number(arr[index + 1]);
+//     //                 break;
+//     //             case "/":
+//     //                 return prev / Number(arr[index + 1]);
+//     //         }
+//     //     } else {
+//     //         return prev;
+//     //     }
+//     // }, splitStr[0]);
+
+//     // console.log(`The result is: ${test}`);
+// }
+
+function fixOperators(str) {
+    const valueDisplayed = display.textContent; // retirar parametros e trocar por valueDisplayed após testes
+    const fixedStr = str.replace(/x|÷/g, match => {
         return match === 'x' ? '*' : '/';
     });
     const splitStr = fixedStr.split(" ");
-    console.log(`splitStr: ${splitStr}`);
 
-    const copySplit = [...splitStr];
-
-    const test = splitStr.reduce((prev, curr, index, arr) => {
-
-        //     if (/[*/+-]/.test(curr)) {
-        //         switch (curr) {
-        //             case "+":
-        //                 return prev + Number(arr[index + 1]);
-        //                 break;
-        //             case "-":
-        //                 return prev - Number(arr[index + 1]);
-        //                 break;
-        //             case "*":
-        //                 return prev * Number(arr[index + 1]);
-        //                 break;
-        //             case "/":
-        //                 return prev / Number(arr[index + 1]);
-        //         }
-        //     } else {
-        //         return prev;
-        //     }
-        // }, Number(splitStr[0])));
-
-        if (/[*/]/.test(curr)) {
-            switch (curr) {
-                case "*":
-
-                    console.table(copySplit);
-
-                    
-                    const prevIndex = copySplit.indexOf(arr[index - 1], index - 1);
-                    const currIndex = copySplit.indexOf(curr);
-                    const nextIndex = copySplit.indexOf(arr[index + 1], index + 1);
-
-                    copySplit.splice(prevIndex, 2);
-
-                    console.table("Depois: ", copySplit);
-
-                    // const currIndex = copySplit.indexOf(ele => ele === curr);
-
-                    // const prevIndex = copySplit.indexOf(ele => ele === arr[index - 1]);
-                    // const nextIndex = copySplit.indexOf(ele => ele === arr[index + 1]);
-
-                    console.log(`prevIndex: ${prevIndex}, currIndex: ${currIndex}, nextIndex: ${nextIndex}`);
-
-                    return Number(prev) * Number(arr[index + 1]);
-                    break;
-                case "/":
-                    return prev / Number(arr[index + 1]);
-            }
-        } else {
-            return prev;
-        }
-    }, splitStr[0]);
-
-    console.log(`The result is: ${test}`);
+    return splitStr;
 }
 
-// function fixPriority(array) {
-//     const fixedArray = [];
-//     for(let i = 1; i < array.length; i++) {
-//         if(i === array.length - 1) break;
+function fixPriority(array) {
+    const copyArray = [...array];
+
+    if (!array.includes("*") && !array.includes("/")) return copyArray;
+
+    const indexOfMult = array.indexOf("*");
+    const indexOfDiv = array.indexOf("/");
+
+    if ((indexOfMult < indexOfDiv || indexOfDiv === -1) && indexOfMult >= 0) {
+        const splitSlice = array.slice(indexOfMult - 1, indexOfMult + 2);
+
+        copyArray.splice(indexOfMult - 1, 3, splitSlice);
 
 
-//     }
+        return [...fixPriority(copyArray)]
+    } else if ((indexOfMult > indexOfDiv || indexOfMulti === -1) && indexOfDiv>= 0) {
+        const splitSlice = array.slice(indexOfDiv - 1, indexOfDiv + 2);
 
-//     return fixedArray;
-// }
-// console.log(fixPriority(["1", "+", "1", "*", "5"]))
+        copyArray.splice(indexOfDiv - 1, 3, splitSlice);
+
+
+        return [...fixPriority(copyArray)]
+    }
+}
+
+// console.log(fixOperators("8 * 3 - 1 + 2 * 5 / 2 - 4 * 3"));
+
+console.log(fixPriority(fixOperators("8 * 3 - 1 + 2 * 5 / 2 - 4 * 3")));  // 16
+
 btns.forEach(btn => btn.addEventListener("click", displayValue));
-equal.addEventListener("click", operate);
+// equal.addEventListener("click", operate);
