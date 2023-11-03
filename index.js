@@ -26,30 +26,30 @@ function displayValue() {
 }
 
 function operate() {
-    const fixedOperators = fixPriority(fixOperators("8 * 3 - 1 + 2 * 5 / 2 - 4 * 3"));
+    const fixedOperators = fixPriority(fixOperators("8 * 3 - 1 + 2 * 5 / 2 - 4 * 3")); // 8 * 3 - 1 + 2 * 5 / 2 * 3 * 5 / 4 / 3 * 27 - 4 * 3
     const rightPriority = fixPriority(fixedOperators);
 
-    console.log(rightPriority);
+    // console.log(rightPriority);
 
     function map(array) {
-        return array.map(elem => {
+        return array.map((elem, index, thisArr) => {
+            
 
             if (!Array.isArray(elem)) {
                 return elem
-            } else if(!Array.isArray(elem[0])) {
+            } else if (!Array.isArray(elem[0])) {
                 switch (elem[1]) {
                     case "*":
                         return elem[0] * elem[2]
                         break;
-                
-                    default:
-                        break;
+                    case "/":
+                        return elem[0] / elem[2]
                 }
             } else {
+                console.log(thisArr[index], elem[0]);
                 return map(elem);
             }
         })
-
     }
 
     console.log(map(rightPriority));
