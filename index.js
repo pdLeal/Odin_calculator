@@ -28,10 +28,19 @@ function displayValue() {
 const smallOp = "2 + 5 * 5 / 8 * 3 - 1 + 2 * 5 / 2 - 4 * 3";
 const bigOp = "8 * 3 - 1 + 2 * 5 / 2 * 3 * 5 / 4 / 3 * 27 - 4 * 3";
 
-function operate(arr) {
+function operate(str) {
     
-    const fixed = fixPriority(fixOperators(arr));
+    const fixed = fixPriority(fixOperators(str));
     console.log(fixed);
+
+    const newArr = [];
+
+    for(let i = 0; i < fixed.length; i++) {
+        if(Array.isArray(fixed[i])) {
+            newArr.push(fixed[i]);
+        }
+    }
+    console.log(newArr);
 
 }
 
