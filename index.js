@@ -25,36 +25,17 @@ function displayValue() {
 
 }
 
-function operate() {
-    const fixedOperators = fixPriority(fixOperators("8 * 3 - 1 + 2 * 5 / 2 - 4 * 3")); // 8 * 3 - 1 + 2 * 5 / 2 * 3 * 5 / 4 / 3 * 27 - 4 * 3
-    const rightPriority = fixPriority(fixedOperators);
+const smallOp = "2 + 5 * 5 / 8 * 3 - 1 + 2 * 5 / 2 - 4 * 3";
+const bigOp = "8 * 3 - 1 + 2 * 5 / 2 * 3 * 5 / 4 / 3 * 27 - 4 * 3";
 
-    // console.log(rightPriority);
+function operate(arr) {
+    
+    const fixed = fixPriority(fixOperators(arr));
+    console.log(fixed);
 
-    function map(array) {
-        return array.map((elem, index, thisArr) => {
-            
-
-            if (!Array.isArray(elem)) {
-                return elem
-            } else if (!Array.isArray(elem[0])) {
-                switch (elem[1]) {
-                    case "*":
-                        return elem[0] * elem[2]
-                        break;
-                    case "/":
-                        return elem[0] / elem[2]
-                }
-            } else {
-                console.log(thisArr[index], elem[0]);
-                return map(elem);
-            }
-        })
-    }
-
-    console.log(map(rightPriority));
 }
-operate();
+
+operate(smallOp);
 
 function fixOperators(str) {
     const valueDisplayed = display.textContent; // retirar str e trocar por valueDisplayed após testes
