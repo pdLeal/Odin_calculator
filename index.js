@@ -103,7 +103,21 @@ function operate() {
 }
 
 function displayResult() {
+    const text = display.textContent;
+
+    if (text.includes("÷")) {
+        const textSplit = text.split(" ");
+
+        for (let i = 0; i < textSplit.length; i++) {
+            if ((textSplit[i] === "÷" && textSplit[i + 1] === "0") || (textSplit[i] === "÷" && textSplit[i + 1] === "")) {
+                result.textContent = "I see what you did there, it won't crash baby ;)"
+                return;
+            }
+        }
+    }
+
     const total = operate();
+
     result.textContent = Number.isInteger(total) ? total : total.toFixed(2);
 }
 
