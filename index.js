@@ -13,6 +13,8 @@ function displayValue() {
 
     const checkOperator = display.textContent[display.textContent.length - 2];
 
+    result.textContent = "";
+
     if (regexForNum.test(this.value)) {     // test the value passed and resets de textContent so it won't display things like 013 or 000
 
         if (display.textContent === "0") {
@@ -128,6 +130,7 @@ function clear() {
 
 function erase() {
     const text = display.textContent;
+    result.textContent = "";
 
     if (text[text.length - 1] === " ") {
 
@@ -135,15 +138,61 @@ function erase() {
     } else if (text.length === 1) {
 
         display.textContent = "0";
-        result.textContent = "";
     } else {
 
         display.textContent = text.slice(0, text.length - 1);
     }
 }
 
+function keyboard(e) {
+    const regexForNum = /^\d+$/;
+    const regexForOperator = /[\*/+-]/;
+    const regexForDot = /\./;
+
+    const checkOperator = display.textContent[display.textContent.length - 2];
+
+    result.textContent = "";
+    if (regexForNum.test(e.key)) {
+
+        if (display.textContent === "0") {
+            display.textContent = "";
+        }
+
+        display.textContent += e.key;
+
+    } else if (regexForOperator.test(e.key) && display.textContent !== "0") {
+
+        if (!checkOperator || !regexForOperator.test(checkOperator)) {
+            if (e.key === "*") {
+                display.textContent += ` x `;
+            } else if (e.key === "/") {
+                display.textContent += ` ÷ `;
+            } else {
+                display.textContent += ` ${e.key} `;
+            }
+        }
+
+    } else if (regexForDot.test(e.key) && (!checkOperator || !regexForOperator.test(checkOperator))) {
+        const text = display.textContent;
+        const textSplit = text.split(" ");
+        if (!textSplit[textSplit.length - 1].includes(".")) {
+            display.textContent += e.key;
+        }
+    }
+}
 
 btns.forEach(btn => btn.addEventListener("click", displayValue));
 equal.addEventListener("click", displayResult);
 clearBtn.addEventListener("click", clear);
 eraseBtn.addEventListener("click", erase);
+window.addEventListener("keydown", keyboard);
+window.addEventListener("keydown", function(e) {
+    if(e.key === "Backspace") {
+        erase();
+    }
+});
+window.addEventListener("keydown", function(e) {
+    if(e.key === "Enter") {
+        displayResult();
+    }
+});
