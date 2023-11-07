@@ -1,6 +1,7 @@
 const btns = document.querySelectorAll("button");
 const display = document.getElementById("display");
 const equal = document.getElementById("equal");
+const result = document.getElementById("result");
 
 function displayValue() {
     const regexForNum = /\d/;
@@ -90,5 +91,10 @@ function operate() {
     }, newArr[0]);
 }
 
+function displayResult() {
+    const total = operate();
+    result.textContent = total;
+}
+
 btns.forEach(btn => btn.addEventListener("click", displayValue));
-equal.addEventListener("click", operate);
+equal.addEventListener("click", displayResult);

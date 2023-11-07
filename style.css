@@ -10,37 +10,52 @@ html {
     padding: 0;
 }
 
+:root {
+    --light-color: rgb(194, 0, 0);
+    ---dark-color: rgba(178, 34, 34, 0.13);
+    --small-margin: 8px;
+    --big-margin: 16px;
+}
+
 main {
     max-width: 750px;
     margin: 80px auto 0;
-    border: 1px solid rgb(194, 0, 0);
+    border: 1px solid var(--light-color);
 }
 
-#display {
+#display, #result {
     font-size: 1.25rem;
     text-align: right;
     line-height: 48px;
-    margin-right: 16px;
+    margin-right: var(--big-margin);
+}
+
+#result {
+    padding-right: var(--big-margin);
+    border-radius: var(--small-margin);
+    margin-bottom: var(--big-margin);
+    margin-inline: var(--small-margin);
+    background-color: var(--light-color);
 }
 
 #inputs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin: 0 8px 16px 8px;
+    margin: 0 var(--small-margin) var(--big-margin);
 }
 
 button {
     font-size: 1.25rem;
     color: white;
-    border-radius: 8px;
-    margin: 0 8px 8px 8px;
+    border-radius: var(--small-margin);
+    margin: 0 var(--small-margin) var(--small-margin) ;
     border: none;
-    background-color: rgba(178, 34, 34, 0.13);
+    background-color: var(---dark-color);
     transition: background-color 300ms;
 }
 
 button:hover {
-    background-color: rgb(194, 0, 0);
+    background-color: var(--light-color);
 }
 
 button:active {
