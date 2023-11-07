@@ -4,11 +4,14 @@ const equal = document.getElementById("equal");
 const result = document.getElementById("result");
 const clearBtn = document.querySelector("[value=C]");
 const eraseBtn = document.querySelector("[value=backSpace]");
+const dotBtn = document.getElementById("dot");
 
 function displayValue() {
     const regexForNum = /\d/;
     const regexForOperator = /[x÷+-]/;
+    const regexForDot = /\./;
 
+    const checkOperator = display.textContent[display.textContent.length - 2];
 
     if (regexForNum.test(this.value)) {     // test the value passed and resets de textContent so it won't display things like 013 or 000
 
@@ -20,10 +23,16 @@ function displayValue() {
 
     } else if (regexForOperator.test(this.value) && display.textContent !== "0") {  // doesn't let things like 0 + 2 be displayed
 
-        const checkOperator = display.textContent[display.textContent.length - 2];
 
         if (!checkOperator || !regexForOperator.test(checkOperator)) {  // ensures only one operator is shown, avoiding things like 2++5
             display.textContent += ` ${this.value} `;
+        }
+
+    } else if (regexForDot.test(this.value) && (!checkOperator || !regexForOperator.test(checkOperator))) {
+        const text = display.textContent;
+        const textSplit = text.split(" ");
+        if (!textSplit[textSplit.length - 1].includes(".")) {
+            display.textContent += this.value;
         }
     }
 
@@ -95,7 +104,7 @@ function operate() {
 
 function displayResult() {
     const total = operate();
-    result.textContent = total;
+    result.textContent = Number.isInteger(total) ? total : total.toFixed(2);
 }
 
 function clear() {
@@ -107,15 +116,18 @@ function erase() {
     const text = display.textContent;
 
     if (text[text.length - 1] === " ") {
+
         display.textContent = text.slice(0, text.length - 3);
+    } else if (text.length === 1) {
+
+        display.textContent = "0";
+        result.textContent = "";
     } else {
-        if (text.length === 1) {
-            display.textContent = "0";
-        } else {
-            display.textContent = text.slice(0, text.length - 1);
-        }
+
+        display.textContent = text.slice(0, text.length - 1);
     }
 }
+
 
 btns.forEach(btn => btn.addEventListener("click", displayValue));
 equal.addEventListener("click", displayResult);
