@@ -35,11 +35,11 @@ function operate(str) {
 
     const newArr = fixed.map(value => {
         function test(value) {
-            if(Array.isArray(value)) {
-                if(value[1] === "*") {
+            if (Array.isArray(value)) {
+                if (value[1] === "*") {
                     return test(value[0]) * value[2]
                 } else {
-                    return test(value[0]) / value [2]
+                    return test(value[0]) / value[2]
                 }
             } else {
                 return value;
@@ -47,11 +47,19 @@ function operate(str) {
         }
         return test(value)
     })
-
     console.log(newArr);
+    return newArr.reduce((total, currVal, index, thisArr) => {
+        if (currVal === "+") {
+            return total + thisArr[index + 1];
+        } else if (currVal === "-") {
+            return total - thisArr[index + 1];
+        } else {
+            return total;
+        }
+    }, newArr[0]);
 }
 
-operate(bigOp);
+console.log(operate(bigOp));
 
 function fixOperators(str) {
     const valueDisplayed = display.textContent; // retirar str e trocar por valueDisplayed após testes
