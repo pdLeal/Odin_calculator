@@ -18,7 +18,7 @@ html {
 }
 
 main {
-    max-width: 750px;
+    width: clamp(300px, 50%, 600px);
     margin: 80px auto 0;
     border: 1px solid var(--light-color);
 }
@@ -41,25 +41,40 @@ main {
 #inputs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--small-margin);
     margin: 0 var(--small-margin) var(--big-margin);
 }
 
-#zero {
-    grid-column: span 2;
+#equal {
+    grid-row: span 2;
 }
 
 button {
     font-size: 1.25rem;
+    cursor: pointer;
     color: white;
     border-radius: var(--small-margin);
-    margin: 0 var(--small-margin) var(--small-margin) ;
-    border: none;
-    background-color: var(---dark-color);
+    /* margin: 0 var(--small-margin) var(--small-margin) ; */
+    /* border: none; */
+    /* background-color: var(---dark-color); */
     transition: background-color 300ms;
+
+
+    /* NEON TEST */
+    background-color: transparent;
+    border: var(--light-color) 0.125em solid;
+
+    text-shadow:
+        0 0 0.125em hsl(0, 0%, 100%),
+        0 0 0.5em var(--light-color);
+        box-shadow: 
+            inset 0 0 0.5em 0 var(--light-color),
+            0 0 0.5em 0 var(--light-color);
 }
 
 button:hover {
     background-color: var(--light-color);
+    
 }
 
 button:active {
