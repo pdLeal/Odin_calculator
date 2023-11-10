@@ -44,6 +44,10 @@ main {
     margin: 0 var(--small-margin) var(--big-margin);
 }
 
+#zero {
+    grid-column: span 2;
+}
+
 button {
     font-size: 1.25rem;
     color: white;
