@@ -29,12 +29,14 @@ function displayValue() {
             display.textContent += ` ${this.value} `;
         }
 
-    } else if (regexForDot.test(this.value) && (!regexForOperator.test(checkOperator))) {
+    } else if (regexForDot.test(this.value) && (!regexForOperator.test(checkOperator))) {  // avoid things like 2 * .5
         const text = display.textContent;
         const textSplit = text.split(" ");
-        if (!textSplit[textSplit.length - 1].includes(".") && text[text.length - 1] != "^") {
+
+        if (!textSplit[textSplit.length - 1].includes(".") && text[text.length - 1] != "^") {  // avoid things like 3.33.66 or 2^.
             display.textContent += this.value;
         }
+
     } else if (this.value === "pow") {
         const text = display.textContent;
         const textSplit = text.split(" ");
@@ -43,9 +45,9 @@ function displayValue() {
         if (regexForNum.test(lastChar) && !textSplit[textSplit.length - 1].includes("^")) {  // ensures that things like 4^6^3, 0.^ or 2 x^ won't happen
             display.textContent += "^";
         }
+
     } else if (this.value === "sqrt") {
         const text = display.textContent;
-        const textSplit = text.split(" ");
         const lastChar = text[display.textContent.length - 1];
 
         if (display.textContent === "0") {
@@ -110,20 +112,22 @@ function operate() {
 
     const fixed = fixPriority(fixOperators());
 
-    const newArr = fixed.map(value => {  // ensures that multiplication and division are made first
-        function test(value) {
+    const newArr = fixed.map(value => {  // ensures that multiplication and division are made first 
+       
+        function makeFirst(value) {
+
             if (Array.isArray(value)) {
                 if (value[1] === "*") {
-                    return test(value[0]) * value[2]
+                    return makeFirst(value[0]) * value[2]
                 } else {
-                    return test(value[0]) / value[2]
+                    return makeFirst(value[0]) / value[2]
                 }
             } else {
                 return value;
             }
         }
-        return test(value)
-    })
+        return makeFirst(value)
+    });
 
     return newArr.reduce((total, currVal, index, thisArr) => {
         if (currVal === "+") {
@@ -139,7 +143,7 @@ function operate() {
 function displayResult() {
     const text = display.textContent;
 
-    if (text.includes("÷")) {
+    if (text.includes("÷")) {  // doesn't let division by 0 occur
         const textSplit = text.split(" ");
 
         for (let i = 0; i < textSplit.length; i++) {
