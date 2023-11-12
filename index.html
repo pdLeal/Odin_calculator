@@ -9,32 +9,42 @@
 </head>
 
 <body>
+    <header>
+        <h1>CALCULATOR</h1>
+        <h2>42.00</h2>
+    </header>
     <main>
-        <div class="light"></div>
-        <div class="small light"></div>
-        <p id="display">0</p>
-        <p id="result">0</p>
-        <section id="inputs">
-            <button type="button" value="9">9</button>
-            <button type="button" value="backSpace"><</button>
-            <button type="button" value="C">C</button>
-            <button type="button" value="7">7</button>
-            <button type="button" value="8">8</button>
-            <button type="button" value="+">+</button>
-            <button type="button" value="5">5</button>
-            <button type="button" value="6">6</button>
-            <button type="button" value="-">-</button>
-            <button type="button" value="3">3</button>
-            <button type="button" value="4">4</button>
-            <button type="button" value="x">x</button>
-            <button type="button" value="1">1</button>
-            <button type="button" value="2">2</button>
-            <button type="button" value="÷">÷</button>
-            <button type="button" value="0" id="zero">0</button>
-            <button type="button" value="pow">x^y</button>
-            <button type="button" value="=" id="equal">=</button>
-            <button type="button" value="." id="dot">.</button>
-            <button type="button" value="sqrt">√x</button>
+        <section class="calc">
+            <div class="light"></div>
+            <div class="small light"></div>
+            <p id="display">0</p>
+            <p id="result">0</p>
+            <div id="inputs">
+                <button class="btn calc-btn" type="button" value="9">9</button>
+                <button class="btn calc-btn" type="button" value="backSpace"><</button>
+                <button class="btn calc-btn" type="button" value="C">C</button>
+                <button class="btn calc-btn" type="button" value="7">7</button>
+                <button class="btn calc-btn" type="button" value="8">8</button>
+                <button class="btn calc-btn" type="button" value="+">+</button>
+                <button class="btn calc-btn" type="button" value="5">5</button>
+                <button class="btn calc-btn" type="button" value="6">6</button>
+                <button class="btn calc-btn" type="button" value="-">-</button>
+                <button class="btn calc-btn" type="button" value="3">3</button>
+                <button class="btn calc-btn" type="button" value="4">4</button>
+                <button class="btn calc-btn" type="button" value="x">x</button>
+                <button class="btn calc-btn" type="button" value="1">1</button>
+                <button class="btn calc-btn" type="button" value="2">2</button>
+                <button class="btn calc-btn" type="button" value="÷">÷</button>
+                <button class="btn calc-btn" type="button" value="0" id="zero">0</button>
+                <button class="btn calc-btn" type="button" value="pow">x^y</button>
+                <button class="btn calc-btn" type="button" value="=" id="equal">=</button>
+                <button class="btn calc-btn" type="button" value="." id="dot">.</button>
+                <button class="btn calc-btn" type="button" value="sqrt">√x</button>
+            </div>
+        </section>
+        <section class="choice">
+            <button class="btn odin-btn" type="button">As Odin's Desire</button>
+            <button class="btn works-btn" type="button">Actually Works</button>
         </section>
     </main>
     <script src="index.js"></script>

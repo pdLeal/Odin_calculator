@@ -100,7 +100,7 @@ function fixPriority(array) {
 
 function operate(str) {
 
-    const toArray = str.replace(/x|÷/g, match => {
+    const toArray = str.replace(/x|÷/g, match => { // transforms the displayed value into an array of numbers and operators
         return match === 'x' ? '*' : '/';
     }).split(" ").map(elem => {
         const regex = /[*/+-]/;
