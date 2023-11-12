@@ -13,7 +13,7 @@ function displayValue() {
 
     const checkOperator = display.textContent[display.textContent.length - 2];
 
-    result.textContent = "";
+    result.textContent = "0";
 
     if (regexForNum.test(this.value)) {     // test the value passed and resets de textContent so it won't display things like 013 or 000
 
@@ -157,12 +157,12 @@ function displayResult() {
 
 function clear() {
     display.textContent = "0";
-    result.textContent = "";
+    result.textContent = "0";
 }
 
 function erase() {
     const text = display.textContent;
-    result.textContent = "";
+    result.textContent = "0";
 
     if (text[text.length - 1] === " ") {
 
@@ -183,7 +183,8 @@ function keyboard(e) {
 
     const checkOperator = display.textContent[display.textContent.length - 2];
 
-    result.textContent = "";
+    result.textContent = "0";
+
     if (regexForNum.test(e.key)) {
 
         if (display.textContent === "0") {
