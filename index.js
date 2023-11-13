@@ -28,7 +28,7 @@ function displayValue(e) {
 
     } else if ((regexForOperator.test(this.value) || regexForOperator.test(e.key)) && display.textContent !== "0" && !regexForOperator.test(checkOperator)) {  // doesn't let things like 0 + 2 or 2++5 be displayed
 
-        if (regexForOperator.test(this.value)) {  
+        if (regexForOperator.test(this.value)) {
 
             display.textContent += ` ${this.value} `;
 
@@ -48,8 +48,8 @@ function displayValue(e) {
         const textSplit = text.split(" ");
 
         if (!textSplit[textSplit.length - 1].includes(".") && text[text.length - 1] != "^") {  // avoid things like 3.33.66 or 2^.
-            
-            if(regexForDot.test(this.value)) {
+
+            if (regexForDot.test(this.value)) {
                 display.textContent += `${this.value}`;
             } else {
                 display.textContent += e.key;
@@ -195,27 +195,79 @@ function erase() {
     }
 }
 
-function odinDesire() {
+function odinClass() {
     calc.classList.add("odin-desire");
     display.classList.add("display-odin");
     result.classList.add("result-odin");
+    display.textContent = "0";
+    result.textContent = "0";
+
+    equal.removeEventListener("click", displayResult);
+    equal.addEventListener("click", odinDesire);
 }
 
-function works() {
+function worksClass() {
     calc.classList.remove("odin-desire");
     display.classList.remove("display-odin");
     result.classList.remove("result-odin");
+    display.textContent = "0";
+    result.textContent = "0";
+
+    equal.addEventListener("click", displayResult);
+    equal.removeEventListener("click", odinDesire);
+}
+
+function odinDesire() {
+    const text = display.textContent;
+    const splitText = text.split(" ");
+
+    if (text.includes("÷")) {
+        const textSplit = text.split(" ");
+
+        for (let i = 0; i < textSplit.length; i++) {
+            if ((textSplit[i] === "÷" && textSplit[i + 1] === "0") || (textSplit[i] === "÷" && textSplit[i + 1] === "")) {
+                result.textContent = "I see what you did there, it won't crash baby ;)"
+                return;
+            }
+        }
+    }
+
+    const odinResult = splitText.reduce((prev, curr, index, arr) => {
+
+        if (/[\*/x/÷+-]/.test(curr)) {
+            switch (curr) {
+                case "+":
+                    return +prev + Number(arr[index + 1]);
+                    break;
+                case "-":
+                    return +prev - Number(arr[index + 1]);
+                    break;
+                case "*":
+                case "x":
+                    return +prev * Number(arr[index + 1]);
+                    break;
+                case "÷":
+                case "/":
+                    return +prev / Number(arr[index + 1]);
+            }
+        } else {
+            return prev;
+        }
+
+    }, +splitText[0]);
+
+    result.textContent = Number.isInteger(odinResult) ? odinResult : odinResult.toFixed(2);
 }
 
 btns.forEach(btn => btn.addEventListener("click", displayValue));
 equal.addEventListener("click", displayResult);
 clearBtn.addEventListener("click", clear);
 eraseBtn.addEventListener("click", erase);
-odinBtn.addEventListener("click", odinDesire);
-worksBtn.addEventListener("click", works);
+
+odinBtn.addEventListener("click", odinClass);
+worksBtn.addEventListener("click", worksClass);
 
 window.addEventListener("keydown", displayValue);
-
 window.addEventListener("keydown", function (e) {
     if (e.key === "Backspace") {
         erase();
@@ -223,7 +275,9 @@ window.addEventListener("keydown", function (e) {
 });
 
 window.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !calc.classList.contains("odin-desire")) {
         displayResult();
+    } else if (e.key === "Enter") {
+        odinDesire();
     }
 });
