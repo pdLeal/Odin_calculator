@@ -215,3 +215,7 @@ main {
     --light-color: var(--odin-color);
     --dark-color: var(--odin-bg-color);
 }
+
+.hidden {
+    display: none;
+}

@@ -196,9 +196,15 @@ function erase() {
 }
 
 function odinClass() {
+    const powBtn = document.querySelector("[value=pow]");
+    const sqrtBtn = document.querySelector("[value=sqrt]");
+
+    powBtn.classList.add("hidden");
+    sqrtBtn.classList.add("hidden");
     calc.classList.add("odin-desire");
     display.classList.add("display-odin");
     result.classList.add("result-odin");
+
     display.textContent = "0";
     result.textContent = "0";
 
@@ -207,9 +213,15 @@ function odinClass() {
 }
 
 function worksClass() {
+    const powBtn = document.querySelector("[value=pow]");
+    const sqrtBtn = document.querySelector("[value=sqrt]");
+
+    powBtn.classList.remove("hidden");
+    sqrtBtn.classList.remove("hidden");
     calc.classList.remove("odin-desire");
     display.classList.remove("display-odin");
     result.classList.remove("result-odin");
+
     display.textContent = "0";
     result.textContent = "0";
 
