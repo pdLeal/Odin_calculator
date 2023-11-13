@@ -1,10 +1,13 @@
 const btns = document.querySelectorAll("button");
-const display = document.getElementById("display");
+const display = document.querySelector(".display");
 const equal = document.getElementById("equal");
-const result = document.getElementById("result");
+const result = document.querySelector(".result");
 const clearBtn = document.querySelector("[value=C]");
 const eraseBtn = document.querySelector("[value=backSpace]");
 const dotBtn = document.getElementById("dot");
+const odinBtn = document.querySelector(".odin-btn");
+const calc = document.querySelector(".calc");
+const worksBtn = document.querySelector(".works-btn");
 
 function displayValue(e) {
     const regexForNum = /^\d+$/;
@@ -192,10 +195,24 @@ function erase() {
     }
 }
 
+function odinDesire() {
+    calc.classList.add("odin-desire");
+    display.classList.add("display-odin");
+    result.classList.add("result-odin");
+}
+
+function works() {
+    calc.classList.remove("odin-desire");
+    display.classList.remove("display-odin");
+    result.classList.remove("result-odin");
+}
+
 btns.forEach(btn => btn.addEventListener("click", displayValue));
 equal.addEventListener("click", displayResult);
 clearBtn.addEventListener("click", clear);
 eraseBtn.addEventListener("click", erase);
+odinBtn.addEventListener("click", odinDesire);
+worksBtn.addEventListener("click", works);
 
 window.addEventListener("keydown", displayValue);
 
