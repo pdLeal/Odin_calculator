@@ -22,6 +22,7 @@ html {
     --big-margin: 16px;
 }
 
+/* HEADER */
 header {
     font-family: 'Shadows Into Light', cursive;
     margin-top: 24px;
@@ -32,21 +33,25 @@ header {
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 5vw, 3rem);
 }
 
 h2 {
-    font-size: 2rem;
-}
-
-main {
-    margin-top: 48px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: start;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 /* CALCULATOR */
+main {
+    max-width: 950px;
+    margin-top: 48px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: var(--big-margin);
+}
+
 .calc {
     width: clamp(225px, 50%, 450px);
     padding: var(--big-margin);
@@ -56,9 +61,9 @@ main {
     position: relative;  
 }
 
-/* SCREEN */
+  /* SCREEN */
 .display, .result {
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 3vw, 1.25rem);
     text-align: right;
     line-height: 48px;
     padding-right: var(--big-margin);
@@ -105,7 +110,7 @@ main {
     right: 37px;
 }
 
-/* CALCULATOR - BUTTONS */
+  /* CALCULATOR - BUTTONS */
 #inputs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -118,7 +123,7 @@ main {
 }
 
 .btn {
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 3vw, 1.25rem);
     cursor: pointer;
     color: var(--white);
     padding-block: 0.1em;
@@ -175,6 +180,10 @@ main {
 
 .odin-btn {
     background-color: var(--odin-bg-color);
+}
+
+.works-btn {
+    margin-bottom: 48px;
 }
 
 .odin-btn:hover {
