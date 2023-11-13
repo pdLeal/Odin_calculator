@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Slackside+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@600&display=swap');
 
 html {
     box-sizing: border-box;
@@ -20,6 +22,7 @@ html {
     --white: whitesmoke;
     --small-margin: 8px;
     --big-margin: 16px;
+    --biggest-margin: 48px;
 }
 
 /* HEADER */
@@ -43,12 +46,12 @@ h2 {
 /* CALCULATOR */
 main {
     max-width: 950px;
-    margin-top: 48px;
+    margin-top: var(--biggest-margin);
     margin-inline: auto;
     display: flex;
     justify-content: space-evenly;
     align-items: start;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     gap: var(--big-margin);
 }
 
@@ -64,8 +67,10 @@ main {
   /* SCREEN */
 .display, .result {
     font-size: clamp(1rem, 3vw, 1.25rem);
+    font-family: 'Handjet', sans-serif;
+    font-weight: 600;
     text-align: right;
-    line-height: 48px;
+    line-height: var(--biggest-margin);
     padding-right: var(--big-margin);
 }
 
@@ -124,6 +129,7 @@ main {
 
 .btn {
     font-size: clamp(1rem, 3vw, 1.25rem);
+    font-family: 'Stick No Bills', sans-serif;
     cursor: pointer;
     color: var(--white);
     padding-block: 0.1em;
@@ -183,7 +189,7 @@ main {
 }
 
 .works-btn {
-    margin-bottom: 48px;
+    margin-bottom: var(--biggest-margin);
 }
 
 .odin-btn:hover {
@@ -227,4 +233,67 @@ main {
 
 .hidden {
     display: none;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    color: var(--white);
+    padding: var(--big-margin);
+    max-width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--dark-color);
+}
+
+footer > p {
+    font-size: clamp(0.8rem, 3vw, 1rem);
+}
+
+.odin-link {
+    color: var(--odin-color);
+    text-decoration: none;
+}
+
+.odin-link:hover {
+    text-shadow:
+        0 0 0.5em var(--odin-color);
+}
+
+footer i {
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: var(--white);
+}
+
+footer i:hover {
+    cursor: pointer;
+    color: #c20000;
+    text-shadow:
+        0 0 0.5em var(--odin-color);
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 410px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer {
+        margin-top: auto;
+        position: static;
+        flex-direction: column;
+        gap: var(--small-margin);
+    }
 }
